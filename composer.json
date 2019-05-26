@@ -1,20 +1,28 @@
 {
-  "name": "shopware-blog/shopware-bugsnag",
-  "description": "A simple implementation for bugsnag.com in shopware",
-  "license": "MIT",
-  "type": "shopware-plugin",
-  "extra": {
-    "installer-name": "ShopwareBlogBugsnag"
-  },
-  "authors": [
-    {
-      "name": "Thomas Eiling",
-      "email": "github@eiling.org"
+    "autoload": {
+        "psr-4": {
+            "BestItBugsnag\\": "Source/"
+        }
+    },
+    "description": "An implementation for bugsnag.com in shopware",
+    "name": "best-it/shopware-bugsnag",
+    "license": "MIT",
+    "type": "shopware-plugin",
+    "extra": {
+        "installer-name": "BestItBugsnag"
+    },
+    "require": {
+        "php": "^7.0",
+        "bugsnag/bugsnag": "^3.0"
+    },
+    "require-dev": {
+        "best-it/php_codesniffer": "^1.2",
+        "phpmd/phpmd": "^2.6"
+    },
+    "scripts": {
+        "tests": [
+            "phpcs -n",
+            "phpmd Source text ./phpmd.dist.xml"
+        ]
     }
-  ],
-  "require": {
-    "php": "^7.0",
-    "bugsnag/bugsnag": "^3.0",
-    "guzzlehttp/guzzle": "5.3.3"
-  }
 }

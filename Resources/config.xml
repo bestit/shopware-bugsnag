@@ -19,5 +19,35 @@
             <name>anonymizeIp</name>
             <label>IP Adresse anonymisieren:</label>
         </element>
+        <element required="false" type="select">
+            <name>notifyReleaseStages</name>
+            <label>Welche Umgebung dürfen Bugsnag benachrichtigen?</label>
+            <description>
+                Sollten Sie Ihre Quellcodes einheitlich über mehrere Umgebungen deployen, können Sie hier entscheiden,
+                welche Umgebungen Bugsnag benachrichtigen dürfen? Dieser Wert muss mit Ihrer Shopware-Konfiguration
+                übereinstimmen.
+            </description>
+            <store>
+                <option>
+                    <value>dev</value>
+                    <label>dev</label>
+                </option>
+                <option>
+                    <value>production</value>
+                    <label>production</label>
+                </option>
+                <option>
+                    <value>testing</value>
+                    <label>testing</label>
+                </option>
+                <option>
+                    <value>staging</value>
+                    <label>staging</label>
+                </option>
+            </store>
+            <options>
+                <multiSelect>true</multiSelect>
+            </options>
+        </element>
     </elements>
 </config>

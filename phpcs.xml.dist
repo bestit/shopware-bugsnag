@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ruleset name="best-it/bugsnag">
+    <config name="testVersion" value="7.0" />
+
+    <rule ref="./vendor/best-it/php_codesniffer/src/Standards/BestIt/ruleset.xml">
+        <exclude name="BestIt.DocTags.RequiredClassTags.TagOccurrenceMinAuthor" />
+    </rule>
+
+    <file>./Source/</file>
+</ruleset>

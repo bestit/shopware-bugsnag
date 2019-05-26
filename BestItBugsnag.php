@@ -1,10 +1,17 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace ShopwareBlogBugsnag;
+declare(strict_types=1);
+
+namespace BestItBugsnag;
 
 use Shopware\Components\Plugin;
 
-class ShopwareBlogBugsnag extends Plugin
+/**
+ * The plugin base class.
+ *
+ * @package BestItBugsnag
+ */
+class BestItBugsnag extends Plugin
 {
 }
 

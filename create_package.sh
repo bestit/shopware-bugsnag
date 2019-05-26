@@ -4,8 +4,8 @@ composer install
 
 rm -rv build/*
 
-mkdir build/ShopwareBlogBugsnag
+mkdir build/BestItBugsnag
 
-cp -rv Resources Source vendor LICENSE README.md ShopwareBlogBugsnag.php build/ShopwareBlogBugsnag/
+cp -rv Resources Source vendor LICENSE README.md BestItBugsnag.php build/BestItBugsnag/
 
-cd ./build && zip -r ./ShopwareBlogBugsnag.zip ./ShopwareBlogBugsnag
+cd ./build && zip -r ./BestItBugsnag.zip ./BestItBugsnag

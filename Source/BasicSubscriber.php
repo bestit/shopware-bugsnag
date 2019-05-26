@@ -1,21 +1,42 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace ShopwareBlogBugsnag\Source;
+declare(strict_types=1);
+
+namespace BestItBugsnag;
 
 use Enlight\Event\SubscriberInterface;
+use Enlight_Controller_EventArgs;
+use Enlight_Event_EventArgs;
 
+/**
+ * Registers the events for handling errors with bugsnag.
+ *
+ * @package BestItBugsnag
+ */
 class BasicSubscriber implements SubscriberInterface
 {
     /**
+     * The injected client.
+     *
      * @var BugsnagClient
      */
     private $bugsnagClient;
 
+    /**
+     * BasicSubscriber constructor.
+     *
+     * @param BugsnagClient $bugsnagClient
+     */
     public function __construct(BugsnagClient $bugsnagClient)
     {
         $this->bugsnagClient = $bugsnagClient;
     }
 
+    /**
+     * Returns the relevant error events for bugsnag.
+     *
+     * @return array
+     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -26,15 +47,18 @@ class BasicSubscriber implements SubscriberInterface
     }
 
     /**
-     * @param \Enlight_Controller_EventArgs $args
+     * Register bugsnag for an error.
+     *
+     * @param Enlight_Controller_EventArgs $args
+     *
+     * @return void
      */
-    public function handleError(\Enlight_Event_EventArgs $args)
+    public function handleError(Enlight_Event_EventArgs $args)
     {
         $front = $args->getSubject();
-        if ($front->getParam('noErrorHandler')) {
-            return;
-        }
 
-        $this->bugsnagClient->registerHandler();
+        if (!$front->getParam('noErrorHandler')) {
+            $this->bugsnagClient->registerHandler();
+        }
     }
 }
