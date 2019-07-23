@@ -1,9 +1,4 @@
 {
-    "autoload": {
-        "psr-4": {
-            "BestItBugsnag\\": "Source/"
-        }
-    },
     "description": "An implementation for bugsnag.com in shopware",
     "name": "best-it/shopware-bugsnag",
     "license": "MIT",
@@ -13,11 +8,23 @@
     },
     "require": {
         "php": "^7.0",
-        "bugsnag/bugsnag": "^3.0"
+        "bugsnag/bugsnag": "^3.0",
+        "shopware/shopware": "^5.4"
     },
     "require-dev": {
         "best-it/php_codesniffer": "^1.2",
-        "phpmd/phpmd": "^2.6"
+        "phpmd/phpmd": "^2.6",
+        "phpunit/phpunit": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "BestItBugsnag\\": ""
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BestItBugsnag\\Tests\\": "tests/"
+        }
     },
     "scripts": {
         "tests": [
