@@ -4,7 +4,10 @@
 
     <rule ref="./vendor/best-it/php_codesniffer/src/Standards/BestIt/ruleset.xml">
         <exclude name="BestIt.DocTags.RequiredClassTags.TagOccurrenceMinAuthor" />
+        <exclude name="BestIt.TypeHints.ReturnTypeDeclaration" />
     </rule>
 
-    <file>./Source/</file>
+    <!-- Path to directory which are checked. -->
+    <file>.</file>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
 </ruleset>

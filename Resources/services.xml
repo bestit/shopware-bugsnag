@@ -5,11 +5,28 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service class="BestItBugsnag\BugsnagClient" id="best_it_bugsnag.bugsnag_client">
-            <argument id="shopware.plugin.cached_config_reader" type="service"/>
+        <!-- ConfigReader -->
+        <service class="Shopware\Components\Plugin\CachedConfigReader" id="best_it_bugsnag.config">
+            <factory service="shopware.plugin.cached_config_reader" method="getByPluginName"/>
+            <argument type="string">BestItBugsnag</argument>
         </service>
-        <service class="BestItBugsnag\BasicSubscriber" id="best_it_bugsnag.basic_subscriber">
-            <argument id="best_it_bugsnag.bugsnag_client" type="service"/>
+
+        <service class="BestItBugsnag\Factory\ClientFactory" id="best_it_bugsnag.factory.client_factory">
+            <argument type="string">%kernel.environment%</argument>
+            <argument id="best_it_bugsnag.config" type="service"/>
+        </service>
+
+        <service class="Bugsnag\Client" id="best_it_bugsnag.client">
+            <factory service="best_it_bugsnag.factory.client_factory" method="create"/>
+        </service>
+
+        <service class="Bugsnag\Handler" id="best_it_bugsnag.handler">
+            <argument id="best_it_bugsnag.client" type="service"/>
+        </service>
+
+        <service class="BestItBugsnag\Subscriber\BugsnagSubscriber" id="best_it_bugsnag.subscriber.bugsnag_subscriber">
+            <argument id="best_it_bugsnag.handler" type="service"/>
+            <argument id="best_it_bugsnag.config" type="service"/>
             <tag name="shopware.event_subscriber"/>
         </service>
     </services>
