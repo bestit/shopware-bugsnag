@@ -4,10 +4,28 @@
     <label lang="de">best it - Shopware Bugsnag</label>
     <label lang="en">best it - Shopware Bugsnag</label>
 
-    <version>1.0.0</version>
+    <version>1.1.1</version>
     <link>https://www.bestit-online.de</link>
     <author>best it GmbH &amp; Co. KG</author>
     <compatibility minVersion="5.4.0" />
+
+    <changelog version="1.1.1">
+        <changes lang="de">Pluginversion mit tag version angeglichen</changes>
+        <changes lang="en">Adjusted plugin version to tag version</changes>
+    </changelog>
+
+    <changelog version="1.1.0">
+        <changes lang="de">
+            Plugin an best it coding Standards angepasst.
+            Grundlegende Refaktorierung der Struktur.
+            Einstellung für Release States hinzugefügt.
+        </changes>
+        <changes lang="en">
+            Plugin adjusted to best it coding standards.
+            Refactoring of basic plugin structure.
+            Added a configuration for release states.
+        </changes>
+    </changelog>
 
     <changelog version="1.0.0">
         <changes lang="de">Initiale Veröffentlichung.</changes>
