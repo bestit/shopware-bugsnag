@@ -7,8 +7,11 @@ namespace BestItBugsnag\Tests\Subscriber;
 use BestItBugsnag\Subscriber\BugsnagSubscriber;
 use Bugsnag\Handler;
 use Enlight\Event\SubscriberInterface;
+use Enlight_Controller_EventArgs;
 use Enlight_Controller_Front;
+use Enlight_Controller_Response_ResponseHttp;
 use Enlight_Event_EventArgs;
+use Exception;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -59,6 +62,39 @@ class BugsnagSubscriberTest extends TestCase
     }
 
     /**
+     * Test the handle exception method
+     *
+     * @param bool $noErrorHandler
+     *
+     * @return void
+     */
+    public function testHandleException(bool $noErrorHandler = false)
+    {
+        $fixture = new BugsnagSubscriber(
+            $handler = $this->createMock(Handler::class),
+            ['exceptionHandler' => true]
+        );
+
+        $args = $this->createMock(Enlight_Controller_EventArgs::class);
+        $args
+            ->expects(static::once())
+            ->method('getResponse')
+            ->willReturn($response = $this->createMock(Enlight_Controller_Response_ResponseHttp::class));
+
+        $response
+            ->expects(static::once())
+            ->method('getException')
+            ->willReturn([$throwable = new Exception('Testexception')]);
+
+        $handler
+            ->expects(static::once())
+            ->method('exceptionHandler')
+            ->with($throwable);
+
+        $fixture->handleException($args);
+    }
+
+    /**
      * Test handle error without error handler
      *
      * @return void
@@ -80,6 +116,7 @@ class BugsnagSubscriberTest extends TestCase
                 'Enlight_Controller_Front_RouteShutdown' => ['handleError', 1000],
                 'Enlight_Controller_Front_PostDispatch' => ['handleError', 1000],
                 'Shopware_Console_Add_Command' => ['handleError', 1000],
+                'Enlight_Controller_Front_DispatchLoopShutdown' => ['handleException', 1000],
             ],
             BugsnagSubscriber::getSubscribedEvents()
         );
