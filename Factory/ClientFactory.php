@@ -48,7 +48,8 @@ class ClientFactory
     public function create(): Client
     {
         if (empty($this->config['apiKey'])) {
-            $client = Client::make();
+            // provide any string as argument so no exception will be thrown
+            $client = Client::make('empty');
         } else {
             $client = Client::make($this->config['apiKey']);
         }

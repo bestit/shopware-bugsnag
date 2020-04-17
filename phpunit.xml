@@ -13,8 +13,8 @@
         </testsuite>
     </testsuites>
 
-    <filter processUncoveredFilesFromWhitelist="true">
-        <whitelist processUncoveredFilesFromWhitelist="true">
+    <filter>
+        <whitelist>
             <directory suffix=".php">./Factory</directory>
             <directory suffix=".php">./Subscriber</directory>
             <file>BestItBugsnag.php</file>

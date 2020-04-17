@@ -8,6 +8,7 @@ use Bugsnag\Handler;
 use Enlight\Event\SubscriberInterface;
 use Enlight_Controller_EventArgs;
 use Enlight_Event_EventArgs;
+use Throwable;
 use function method_exists;
 
 /**
@@ -54,6 +55,7 @@ class BugsnagSubscriber implements SubscriberInterface
             'Enlight_Controller_Front_RouteShutdown' => ['handleError', 1000],
             'Enlight_Controller_Front_PostDispatch' => ['handleError', 1000],
             'Shopware_Console_Add_Command' => ['handleError', 1000],
+            'Enlight_Controller_Front_DispatchLoopShutdown' => ['handleException', 1000],
         ];
     }
 
@@ -81,6 +83,32 @@ class BugsnagSubscriber implements SubscriberInterface
 
                 // restore default error handler
                 restore_error_handler();
+            }
+        }
+    }
+
+    /**
+     * Listening for exceptions here due to how shopware handles exceptions.
+     * They catch all exceptions (prod config) so we cannot register an
+     * exception handler which would notify bugsnag about them.
+     *
+     * @param Enlight_Controller_EventArgs $args
+     *
+     * @return void
+     */
+    public function handleException(Enlight_Controller_EventArgs $args)
+    {
+        $response = $args->getResponse();
+        $exceptions = $response->getException();
+
+        if (count($exceptions) === 0 || !isset($this->config['exceptionHandler'])) {
+            return;
+        }
+
+        if ($this->config['exceptionHandler'] === true) {
+            /** @var Throwable $exception */
+            foreach ($exceptions as $exception) {
+                $this->bugsnagHandler->exceptionHandler($exception);
             }
         }
     }
