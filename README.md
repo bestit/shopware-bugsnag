@@ -28,3 +28,9 @@ PHPUnit tests enabled and should be written in the tests folder. To run them use
 ``
     $ ./vendor/bin/phpunit
 ``
+
+To see whether the plugin works in your environment, implement this in your code and check in the bugsnag portal.
+
+``
+    $this->get('best_it_bugsnag.client')->notifyException(new \Exception('Test error'));
+``
